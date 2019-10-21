@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;UseReferenceMethode_01.java&apos; to &apos;PLambda/src/ch.arc.cours.b_stream.d_referencemethode&apos;&#x0A;- Original project: &apos;PLambda&apos;&#x0A;- Destination element: &apos;PLambda/src/ch.arc.cours.b_stream.d_referencemethode&apos;&#x0A;- Original element: &apos;ch.arc.cours.b_stream.d_referencemethode.UseReferenceMethode_01.java&apos;" description="Copy compilation unit" destination="/src&lt;ch.arc.cours.b_stream.d_referencemethode" element1="/src&lt;ch.arc.cours.b_stream.d_referencemethode{UseReferenceMethode_01.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1570613546451" units="1" version="1.0"/>
+</session>

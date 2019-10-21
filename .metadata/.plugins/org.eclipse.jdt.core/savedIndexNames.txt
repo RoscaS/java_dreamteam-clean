@@ -1,0 +1,20 @@
+INDEX VERSION 1.131+/home/bilat/CBI/Dropbox/01_CBI_CODE/JavaFonctionel/WLambda/.metadata/.plugins/org.eclipse.jdt.core
+1501319081.index
+1499775066.index
+646308851.index
+2877518486.index
+2313157835.index
+2575708155.index
+1097999968.index
+1885106431.index
+3460602348.index
+1575941930.index
+3668799671.index
+55713075.index
+53924812.index
+3206050897.index
+2265347880.index
+1222618034.index
+1123342923.index
+2569079557.index
+2449311523.index

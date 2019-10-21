@@ -1,0 +1,257 @@
+
+package ch.arc.cours.b_stream.b_stream;
+
+import java.util.Arrays;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.function.IntFunction;
+import java.util.function.ToIntFunction;
+
+import ch.arc.cours.g_annexe.material.Personne;
+import ch.arc.cours.g_annexe.material.PersonneTools;
+
+/**
+ * <pre>
+ * Attention aux deux types ci-dessous:
+ *
+ * 		Stream<Integer>
+ * 		IntStream
+ *
+ * Avantage :
+ *
+ * 		IntStream	plus riche que 			Stream<Integer>
+ * 		IntStream	plus performant que 	Stream<Integer> , car pas de wrapper (boxing et unboxing auto, instanciation, gc)
+ *
+ * Conseil :
+ *
+ * 		Utiliser IntStream dès que possible!
+ * </pre>
+ */
+public class UseStream_03_intstream
+	{
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+
+	public static void main(String[] args)
+		{
+		main();
+		}
+
+	public static void main()
+		{
+		int n = 5;
+
+		System.out.println("stream : interface fonctionel : mapToInt");
+
+		// reduce easy
+			{
+			useMaptoInt(n);
+			}
+
+		// collect easy
+			{
+			useConvertion();
+			}
+
+		// copy easy
+			{
+			useArrayCopy();
+			useListCopy();
+			}
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
+	/*------------------------------*\
+	|*		reduction / easy		*|
+	\*------------------------------*/
+
+	/**
+	 * Quoi : 	 	mapToInt			reduce
+	 * Comment :	ToIntFunction<T> 	sum
+	 *
+	 * Probleme 1 :	somme des ages
+	 * Probleme 2 :	moyenne des hauteurs
+	 * Probleme 3 :	statistique des hauteurs
+	 */
+	private static void useMaptoInt(int n)
+		{
+		List<Personne> list = PersonneTools.create(n);
+
+		// reference methode si possible
+			{
+			ToIntFunction<Personne> age = null;// TODO
+			ToIntFunction<Personne> hauteur = null;// TODO
+
+			Integer sumAge = null;// TODO
+			IntSummaryStatistics statHauteur = null;// TODO
+			OptionalDouble optionalAverageHauteur = null;// TODO
+
+			// sum	 				: terminal
+			// average  			: terminal
+			// summaryStatistics 	: terminal
+
+			// affichage
+				{
+				System.out.println("somme des ages = " + sumAge);
+				System.out.println("stat = " + statHauteur);
+
+				// old style
+					{
+					if (optionalAverageHauteur.isPresent())
+						{
+						System.out.println("moyenne des hauteurs = " + optionalAverageHauteur.getAsDouble());
+						}
+					}
+
+				// new style
+					{
+					//optionalAverageHauteur.ifPresent(consumer);// TODO
+					}
+				}
+			}
+
+		// sans variable
+			{
+			Integer sumAge = null;// TODO
+			IntSummaryStatistics statHauteur = null;// TODO
+			OptionalDouble optionalAverageHauteur = null;// TODO
+
+			System.out.println("somme des ages = " + sumAge);
+			System.out.println("stat = " + statHauteur);
+			//optionalAverageHauteur.ifPresent(consumer);// TODO
+			}
+		}
+
+	/*------------------------------*\
+	|*		collect	 / easy			*|
+	\*------------------------------*/
+
+	/**
+	 * Probleme :	Convertion d'une liste en tableau
+	 */
+	private static void useConvertion()
+		{
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+		// sans mapToInt
+			{
+			// Indication:
+			//		(i1)	toArray
+			//		(I2)	ToIntFunction<T> comme generator pour toArray
+
+			// version 1 : Sans mapToInt !!!!
+				{
+				// generator :
+				// 		input  : n la taille du tableau
+				// 		output : un tableau d'integer de taille n
+				IntFunction<Integer[]> generator = null;// TODO
+				Integer[] tab = null;// TODO
+
+				System.out.println(Arrays.toString(tab));
+				}
+
+			// version 2 : idem ci-dessus, mais avec reference methode
+				{
+				// reference methode pour le generator
+				IntFunction<Integer[]> generator = null;// TODO
+				Integer[] tab = list.stream().toArray(generator);// TODO
+
+				System.out.println(Arrays.toString(tab));
+
+				// see chapter reference methode pour plus d'exemples
+				}
+			}
+
+		// version3 : avec mapToInt : easy
+			{
+			// Indication : simple!
+			Integer[] tab = null;// TODO
+
+			System.out.println(Arrays.toString(tab));
+
+			// Question 1: Before mapToInt, quel est le type de votre stream? Answer : Stream<Integer>
+			// Question 2: After mapToInt, quel est le type de votre stream?  Answer : IntStream
+			}
+		}
+
+	/*------------------------------*\
+	|*		copy	 / easy			*|
+	\*------------------------------*/
+
+	/**
+	 * Quoi : 	 	copy Array (profonde)
+	 */
+	private static void useArrayCopy()
+		{
+		// tab d'object
+			{
+			// copy
+				{
+				Integer[] tabSource = { 1, 2, 3, 4, 5 };
+
+				// copy profonde de tabSource, contenant objet Integer
+				//  Indications:
+				//		step 1 : mapToInt
+				//		step 2 : easy
+				int[] tabCopyDeep = null;// TODO
+
+				tabSource[0] = -1; // modify pas tabCopyDeep
+
+				System.out.println(Arrays.toString(tabCopyDeep));
+
+				// Note : int[] tabCopy=tabSource; // compilation failed!
+				// Question 1: Before mapToInt, quel est le type de votre stream? Answer : Stream<Integer>
+				// Question 2: After mapToInt, quel est le type de votre stream?  Answer : IntStream
+				}
+
+			}
+
+		// tab de type simple
+			{
+			int[] tabSource = { 1, 2, 3, 4, 5 };
+
+			//  Indication: Arrays.stream(tabSource) est de type IntStream, deja!
+			int[] tabCopyDeep = null;// TODO
+
+			tabSource[0] = -1; // modifie pas tabCopyDeep
+
+			System.out.println(Arrays.toString(tabCopyDeep));
+
+			// Question :  Quel est le type de votre stream? Answer : IntStream
+			}
+
+		}
+
+	/**
+	 * Quoi : 	 	copy List
+	 */
+	private static void useListCopy()
+		{
+		// v1 copy superficielle
+			{
+			List<Integer> listSource = Arrays.asList(1, 2, 3, 4);
+
+			//  Indication: collect
+			List<Integer> listCopySuperficielle = null;// TODO
+
+			System.out.println(listCopySuperficielle);
+			}
+
+		// v2 copy profonde
+			{
+			List<Integer> listSource = Arrays.asList(1, 2, 3, 4);
+
+			//  Indication: collect
+			List<Integer> listCopyDeep = null;// TODO
+
+			System.out.println(listCopyDeep);
+			}
+
+		}
+
+	}

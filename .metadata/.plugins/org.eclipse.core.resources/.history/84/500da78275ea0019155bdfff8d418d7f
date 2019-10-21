@@ -1,0 +1,465 @@
+
+package ch.arc.cours.b_stream.d_referencemethode;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+
+import org.junit.Assert;
+
+import ch.arc.cours.g_annexe.material.CompteUBS;
+import ch.arc.cours.g_annexe.material.Maison;
+
+public class UseReferenceMethode_01
+	{
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+
+	public static void main(String[] args)
+		{
+		main();
+		}
+
+	public static void main()
+		{
+		System.out.println("reference methode static/non static constructeur ...");
+
+		// static
+			{
+			methodeStaticMath();
+			methodeStaticInteger();
+			}
+
+		// non static
+			{
+			methodeNonStaticMaison();
+			sort();
+			}
+
+		// constructeur
+			{
+			constructeurInteger();
+			}
+
+		// indirecte (attribut static)
+			{
+			reference_indirecte_attribut_static_sysout();
+			reference_indirecte_attribut_static_ubs();
+			}
+
+		// attribut d'instance
+			{
+			reference_attribut_instance_ubs();
+			}
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
+	/*------------------------------*\
+	|*				Static			*|
+	\*------------------------------*/
+
+	private static void methodeStaticMath()
+		{
+		// classe interne anonyme
+			{
+			Function<Double, Double> f = new Function<Double, Double>()
+				{
+
+				@Override
+				public Double apply(Double t)
+					{
+					return Math.abs(t);
+					}
+				};
+
+			Assert.assertTrue(f.apply(-1d) == 1);
+			}
+
+		// lambda
+			{
+			Function<Double, Double> f = null;// TODO
+
+			Assert.assertTrue(f.apply(-1d) == 1);
+			}
+
+		// reference methode
+			{
+			Function<Double, Double> f = null;// TODO
+
+			Assert.assertTrue(f.apply(-1d) == 1);
+			}
+		}
+
+	/**
+	 * sum des nombres paires
+	 */
+	private static void methodeStaticInteger()
+		{
+		Integer[] tab = { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+		// lambda
+			{
+			Integer sumPaire = null;// TODO
+
+			Assert.assertTrue(sumPaire == 2 + 4 + 6 + 8);
+			}
+
+		// reference methode:
+			{
+			// Indication: use classe Int
+			Integer sumPaire = null;// TODO
+
+			Assert.assertTrue(sumPaire == 2 + 4 + 6 + 8);
+			}
+		}
+
+	/*------------------------------*\
+	|*			non	Static			*|
+	\*------------------------------*/
+
+	/**
+	 * sum des prix des maisons
+	 */
+	private static void methodeNonStaticMaison()
+		{
+		Maison[] tab = { new Maison(1, 10, 100), new Maison(2, 20, 200) }; // Maison (prix, piece ,surface)
+
+		// lambda
+			{
+			Integer prixTotal = null;// TODO
+
+			Assert.assertTrue(prixTotal == 3);
+			}
+
+		// lambda reference methode (prix)
+			{
+			Integer prixTotal = null;// TODO
+
+			Assert.assertTrue(prixTotal == 3);
+			}
+		}
+
+	/**
+	 * tri d'un tableau de string
+	 */
+	private static void sort()
+		{
+		// sans stream
+			{
+			// classe interne anonyme
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+
+				System.out.println("avant : " + Arrays.asList(tab));
+
+				Comparator<String> comparator = new Comparator<String>()
+					{
+
+					@Override
+					public int compare(String s1, String s2)
+						{
+						return s1.compareToIgnoreCase(s2);
+						}
+					};
+				Arrays.sort(tab, comparator); // sur place
+
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+
+			// lambda (sans stream)
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+
+				// TODO, sans stream, tri parallel !
+
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+
+			// lambda (sans stream),  tri parallel, reference methode
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+
+				// TODO
+
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+
+			}
+
+		// avec stream,  tri parallel, reference methode
+			{
+			String[] tab = { "maison", "banane", "Meteo", "repas" };
+
+			// TODO
+
+			System.out.println("après : " + Arrays.toString(tab));
+			}
+		}
+
+	/*------------------------------*\
+	|*				Constructeur	*|
+	\*------------------------------*/
+
+	/**
+	 * <pre>
+	 *
+	 * Construire une liste d'entier depuis un tableau de string
+	 *
+	 * 			String[] 	to 		List<Integer>
+	 *
+	 * Rappel
+	 * 			String		to 		Integer
+	 * 			s                    new Integer(s)
+	 *
+	 * </pre>
+	 */
+	private static void constructeurInteger()
+		{
+		String[] tabString = { "1", "2", "3", "4" };
+
+		// lambda
+			{
+			try
+				{
+				Function<String, Integer> toInteger = null;//TODO
+
+				List<Integer> list = null;
+
+				System.out.println(list);
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+
+		// reference methode pour constructeur
+			{
+			try
+				{
+				List<Integer> list = null;// TODO
+
+				System.out.println(list);
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+		}
+
+	/**
+	 * <pre>
+	 *
+	 * Construire une tableau d'entier  depuis un tableau de string
+	 *
+	 * 			String[] 	to 		Integer[]
+	 *
+	 * Rappel
+	 *
+	 * 			String		to 		Integer
+	 * 			s                   new Integer(s)
+	 *
+	 * Rappel:
+	 *
+	 * 			C++:
+	 *
+	 * 				A* tab=new a[n]			n+1 objets instancie: le tableau et n objet A
+	 * 										A doit posséder un constrcuteur sans parametre (sinon compile pas)
+	 * 										Chaque case contient deja un A.
+	 *
+	 * 				A** tab=new A*[n]		1 objet instancier: le tableau.
+	 * 										Les cases du tableau contiennent des pointeurs null.
+	 *
+	 * 			Java:
+	 *
+	 * 				A[] tab=new A[n]		1 objet instancier: le tableau.
+	 * 										Les cases du tableau contiennent des références null.
+	 *
+	 * </pre>
+	 */
+	private static void constructeurArrayInteger()
+		{
+		String[] tabString = { "1", "2", "3", "4" };
+
+		// lambda, avec variable
+			{
+			try
+				{
+				// Indication generator :
+				//		(I1) generator input  : n la taille du tableau
+				//		(I2) generator output : un tableau de n joueur
+				//
+				// Output : Integer pas int !
+				IntFunction<Integer[]> generatorArray = null;// TODO
+				Function<String, Integer> stringToInteger = null;// TODO
+
+				// Indication  : toArray
+				Integer[] tabInteger = null;// TODO
+
+				System.out.println(Arrays.toString(tabInteger));
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+
+		// reference methode, avec variable
+			{
+			try
+				{
+				IntFunction<Integer[]> generatorArray = null;// TODO
+				Function<String, Integer> stringToInteger = null;// TODO
+
+				Integer[] tabInteger = null;// TODO
+
+				System.out.println(Arrays.toString(tabInteger));
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+
+		// reference methode, sans variable
+			{
+			try
+				{
+				Integer[] tabInteger = null;// TODO
+
+				System.out.println(Arrays.toString(tabInteger));
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+
+		// reference methode, sans variable
+		// Output : int[] et non Integer[]
+			{
+			try
+				{
+				int[] tabInteger = null;// TODO
+
+				System.out.println(Arrays.toString(tabInteger));
+				}
+			catch (Exception e)
+				{
+				System.out.println("impossible");
+				}
+			}
+
+		}
+
+	/*------------------------------*\
+	|*	Indirect (Attribut Static)	*|
+	\*------------------------------*/
+
+	private static void reference_indirecte_attribut_static_sysout()
+		{
+		List<String> list = Arrays.asList("Alice", "Bob", "Claire", "Jules");
+
+		// v1 lambda
+			{
+			Consumer<String> print = null; // TODO
+			list.forEach(print);
+			}
+
+		// v2 reference methode
+			{
+			Consumer<String> print = null; // TODO
+			list.forEach(print);
+			}
+
+		// v2 reference methode sans varaible
+			{
+			// TODO
+			}
+		}
+
+	private static void reference_indirecte_attribut_static_ubs()
+		{
+		List<CompteUBS> list = Arrays.asList(new CompteUBS(10), new CompteUBS(100), new CompteUBS(1000));
+
+		// v1
+			{
+			double gainTotal = 0;
+			for(CompteUBS compte:list)
+				{
+				gainTotal += CompteUBS.tauxInteret.gain(compte.getMontant());
+				//  CompteUBS.tauxInteret est un objet de type TauxInteret.
+				//  tauxInteret attribut public static de CompteUBS
+				}
+
+			Assert.assertTrue(gainTotal == 15 + 150 + 1500);
+			}
+
+		// v2.1 lambda sans variable : 1 mapToDouble
+			{
+			double gainTotal = -1; // TODO
+
+			Assert.assertTrue(gainTotal == 15 + 150 + 1500);
+			}
+
+		// v2.2 lambda sans variable : 2 map
+
+			{
+			// Contraintes:
+			//			1 mapToDouble 	(pour extraire montant)
+			//			1 map 			(pour calcul du gain)
+			double gainTotal = -1;// TODO
+
+			Assert.assertTrue(gainTotal == 15 + 150 + 1500);
+			}
+
+		// v3 reference methode sans varaible
+			{
+			double gainTotal = -1;//TODO
+
+			Assert.assertTrue(gainTotal == 15 + 150 + 1500);
+			}
+		}
+
+	/*------------------------------*\
+	|*	Attribut d'instance			*|
+	\*------------------------------*/
+
+	private static void reference_attribut_instance_ubs()
+		{
+		List<CompteUBS> list = Arrays.asList(new CompteUBS(10), new CompteUBS(100), new CompteUBS(1000));
+
+		// v1
+			{
+			double sumMontant = 0;
+			for(CompteUBS compte:list)
+				{
+				sumMontant += compte.getMontant();
+				}
+
+			Assert.assertTrue(sumMontant == 10 + 100 + 1000);
+			}
+
+		// v2.1 getMontant : reference methode
+			{
+			double sumMontant =-1; // TODO
+
+			Assert.assertTrue(sumMontant == 10 + 100 + 1000);
+			}
+
+		// v3 : reference : attribut "montant" (mis public pour pouvoir y acceder)
+			{
+			double sumMontant = -1;// TODO possible? non!
+			}
+		}
+
+	}

@@ -1,0 +1,106 @@
+
+package ch.arc.cours.b_stream.d_referencemethode;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+
+import org.junit.Assert;
+
+import ch.arc.cours.g_annexe.material.CompteUBS;
+import ch.arc.cours.g_annexe.material.Maison;
+
+public class UseReferenceMethode_03_training
+	{
+	
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+	
+	public static void main(String[] args)
+		{
+		main();
+		}
+		
+	public static void main()
+		{
+		System.out.println("reference methode : training 03");
+		
+		}
+		
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+	
+	/**
+	 * tri d'un tableau de string
+	 */
+	private static void sort()
+		{
+		// sans stream
+			{
+			// classe interne anonyme
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+				
+				System.out.println("avant : " + Arrays.asList(tab));
+				
+				Comparator<String> comparator = new Comparator<String>()
+					{
+					
+					@Override
+					public int compare(String s1, String s2)
+						{
+						return s1.compareTo(s2);
+						}
+					};
+				
+				Arrays.sort(tab, comparator); // sur place
+				
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+				
+			// sans stream, tri parallel,lambda
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+				
+				// TODO, sans stream, tri parallel !
+				
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+				
+			// sans stream, tri parallel, reference methode
+				{
+				String[] tab = { "maison", "banane", "Meteo", "repas" };
+				
+				// TODO
+				
+				System.out.println("après : " + Arrays.toString(tab));
+				}
+				
+			}
+			
+		// avec stream, tri parallel
+			{
+			String[] tab = { "maison", "banane", "Meteo", "repas" };
+			
+			// v1 : lambda
+				{
+				String[] tabSorted = null;// TODO
+				
+				System.out.println("après : " + Arrays.toString(tabSorted));
+				}
+				
+			// v2 : reference methode
+				{
+				String[] tabSorted = null;// TODO
+				
+				System.out.println("après : " + Arrays.toString(tabSorted));
+				}
+			}
+		}
+		
+	}

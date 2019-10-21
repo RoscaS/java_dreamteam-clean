@@ -1,0 +1,189 @@
+
+package ch.arc.cours.b_stream.c_stream_indice;
+
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
+import java.util.function.IntUnaryOperator;
+import java.util.function.UnaryOperator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import org.junit.Assert;
+
+public class UseStream_01_Infinite
+	{
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+	
+	public static void main(String[] args)
+		{
+		main();
+		}
+		
+	public static void main()
+		{
+		System.out.println("Stream indice : infinite");
+		
+		// stream infinite
+			{
+			useInfiniteHello();
+			useInfiniteEx();
+			}
+			
+		// intstream infinite
+			{
+			useInfiniteIntStreamHello();
+			useInfiniteIntStreamEx();
+			}
+		}
+		
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+	
+	/*------------------------------*\
+	|*			Stream Infinite		*|
+	\*------------------------------*/
+	
+	/**
+	 * Apprentissage:
+	 *
+	 * 		stream infinite pour remplacer boucle
+	 *
+	 * Activite:
+	 *
+	 * 		stream pour afficher les 10 premiers nombres paires
+	 */
+	private static void useInfiniteHello()
+		{
+		int n = 10;
+		
+		// code de base
+			{
+			for(int i = 0; i < n; i = i + 2)
+				{
+				System.out.println(i);// affiche mombre paire
+				}
+			}
+			
+		// stream : lamda dans variable
+			{
+			UnaryOperator<Integer> inc2 = null; // TODO incrementer de 2
+			Consumer<Integer> print = null; // TODO
+			
+			Stream<Integer> stream = Stream.iterate(0, inc2); // stream infinite
+			stream.limit(n / 2).forEach(print); // warning n/2
+			}
+			
+		// stream : lamda,  sans aucune variable
+			{
+			// TODO
+			}
+			
+		// stream : reference methode si possible, une seule ligne
+			{
+			// TODO
+			}
+		}
+		
+	/**
+	 * Exercice:
+	 *
+	 * 		somme des n premiers nombre entier
+	 */
+	private static void useInfiniteEx()
+		{
+		int n = 4;
+		
+		// code de base
+			{
+			long sum = 0;
+			for(int i = 0; i < n; i++)
+				{
+				sum += i;
+				}
+				
+			Assert.assertTrue(sum == n * (n - 1) / 2);
+			}
+			
+		// stream infinite : lamda dans variable, sans reference methode
+			{
+			UnaryOperator<Integer> inc1 = null;// TODO
+			
+			long sum = -1;
+			
+			Assert.assertTrue(sum == n * (n - 1) / 2);
+			}
+			
+		// stream infinite : reference methode si possible, une seule ligne
+			{
+			long sum = -1;// TODO
+			
+			Assert.assertTrue(sum == n * (n - 1) / 2);
+			}
+		}
+		
+	/*------------------------------*\
+	|*		IntStream Infinite		*|
+	\*------------------------------*/
+	
+	/**
+	 * Idem ci-dessus, mais en IntStream (easy & plus performant)
+	 */
+	private static void useInfiniteIntStreamHello()
+		{
+		int n = 10;
+		
+		// code de base
+			{
+			for(int i = 0; i < n; i = i + 2)
+				{
+				System.out.println(i);// affiche mombre paire
+				}
+			}
+			
+		// IntStream : lamda dans variable
+			{
+			IntUnaryOperator inc2 = null; // TODO incrementer de 2
+			IntConsumer print = null; // TODO
+			
+			IntStream intstream = null;//TODO
+			// TODO
+			}
+			
+		// IntStream : reference methode si possible, une seule ligne
+			{
+			// TODO
+			}
+			
+		}
+		
+	/**
+	 * Idem ci-dessus, mais en IntStream (easy!)
+	 */
+	private static void useInfiniteIntStreamEx()
+		{
+		int n = 4;
+		
+		// code de base
+			{
+			long sum = 0;
+			for(int i = 0; i < n; i++)
+				{
+				sum += i;
+				}
+				
+			Assert.assertTrue(sum == n * (n - 1) / 2);
+			}
+			
+		// IntStream infinite : reference methode si possible, une seule ligne
+		// Contrainte 1 : employer les symboles ++
+		// Contrainte 2 : Executer pour tester!
+			{
+			long sum = -1;// TODO
+			
+			Assert.assertTrue(sum == n * (n - 1) / 2);
+			}
+		}
+	}

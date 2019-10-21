@@ -1,0 +1,48 @@
+
+package ch.arc.cours.lamda.a_interfacefonctionelle.function.algebre.a_classe_separer.compose;
+
+import ch.arc.cours.lamda.function.a_classe_separer.Function_I;
+
+public class FunctionAlgebra
+	{
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+
+	/**
+	 * (h 0 g)(x) = h(g(x))
+	 *
+	 * classe interne anonyme sans variable
+	 */
+	public static Function_I composition1(Function_I h, Function_I g)
+		{
+		return null;// TODO
+		}
+
+	/**
+	 * (h 0 g)(x) = h(g(x))
+	 *
+	 * lamda dans variable
+	 */
+	public static Function_I composition2(Function_I h, Function_I g)
+		{
+		// TODO
+		return null;
+		}
+
+	/**
+	 * (h 0 g)(x) = h(g(x))
+	 *
+	 * lamda
+	 */
+	public static Function_I composition3(Function_I h, Function_I g)
+		{
+		return null;// TODO
+		}
+
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+
+	}
